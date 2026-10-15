@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerNest | Find your next opportunity</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="#"><span class="brand-mark">C</span> CareerNest</a>
+    <nav><a href="#jobs">Find jobs</a><a href="#employers">For employers</a></nav>
+    <button class="button button-dark" id="openPostTop">Post a job <span>↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> YOUR NEXT CHAPTER STARTS HERE</div>
+        <h1>Find work that<br> <span>moves you forward.</span></h1>
+        <p class="hero-text">Discover opportunities that match your skills, your ambition, and the life you want to build.</p>
+        <div class="hero-stats">
+          <div><strong id="jobCount">6+</strong><small>Open roles</small></div>
+          <div><strong>3</strong><small>Work styles</small></div>
+          <div><strong>1</strong><small>Next big step</small></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Career growth illustration">
+        <div class="art-circle circle-one"></div><div class="art-circle circle-two"></div>
+        <div class="floating-card card-top"><span class="tiny-icon">✦</span><div><b>Make your move</b><small>Great things start somewhere.</small></div></div>
+        <div class="person"><div class="person-head"></div><div class="person-body"></div><div class="person-arm"></div></div>
+        <div class="step step-one"></div><div class="step step-two"></div><div class="step step-three"></div>
+        <div class="floating-card card-bottom"><span class="check">✓</span><div><b>Opportunity found</b><small>Your next chapter awaits</small></div></div>
+        <div class="spark spark-one">✳</div><div class="spark spark-two">✦</div>
+      </div>
+    </section>
+
+    <section class="search-wrap" id="jobs">
+      <div class="search-heading"><div><span class="eyebrow">THE RIGHT FIT</span><h2>Explore open roles</h2></div><span class="results-label" id="resultsLabel">Loading jobs...</span></div>
+      <form class="search-bar" id="searchForm">
+        <label class="search-field"><span>⌕</span><input id="searchInput" placeholder="Job title, skill, or company"></label>
+        <label class="search-field location-field"><span>⌖</span><input id="locationInput" placeholder="City or remote"></label>
+        <label class="select-field"><select id="typeInput"><option>All types</option><option>Full-time</option><option>Internship</option><option>Contract</option></select></label>
+        <button class="button button-primary" type="submit">Search jobs</button>
+      </form>
+      <div class="jobs-layout">
+        <aside class="side-note">
+          <div class="side-icon">✦</div><h3>A role that fits your future.</h3><p>Start with curiosity. Find teams where you can learn, contribute, and grow.</p>
+          <button class="text-button" id="clearFilters">Clear filters ↗</button>
+          <div class="mini-note"><span>✧</span> New opportunities added regularly.</div>
+        </aside>
+        <div class="job-list" id="jobList"><div class="loading">Finding your next opportunity…</div></div>
+      </div>
+    </section>
+
+    <section class="employer-banner" id="employers">
+      <div><span class="eyebrow">HIRING TALENT?</span><h2>Meet your next great hire.</h2><p>Share an opportunity with people ready to make an impact.</p></div>
+      <button class="button button-light" id="openPostBottom">Post a job <span>↗</span></button>
+      <div class="banner-decoration">✳</div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-mark">C</span> CareerNest</a><p>Made for the next step in your career.</p><small>Demo project · Protect applicant data before production use.</small></footer>
+
+  <div class="modal hidden" id="applyModal">
+    <div class="modal-backdrop" data-close="applyModal"></div>
+    <section class="modal-card">
+      <button class="modal-close" data-close="applyModal" aria-label="Close">×</button>
+      <span class="eyebrow">TAKE THE NEXT STEP</span><h2>Apply for this role</h2><p class="modal-subtitle" id="applyJobName"></p>
+      <form id="applyForm">
+        <input type="hidden" id="applyJobId">
+        <label>Your name<input required id="applicantName" placeholder="Full name"></label>
+        <label>Email address<input required type="email" id="applicantEmail" placeholder="you@example.com"></label>
+        <label>Resume link <span class="optional">(optional)</span><input id="resumeLink" type="url" placeholder="Link to your resume"></label>
+        <label>Short cover note <span class="optional">(optional)</span><textarea id="coverLetter" rows="3" placeholder="Tell the employer why you're interested"></textarea></label>
+        <button class="button button-primary full-width" type="submit">Submit application</button>
+        <p class="form-message" id="applyMessage"></p>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal hidden" id="postModal">
+    <div class="modal-backdrop" data-close="postModal"></div>
+    <section class="modal-card">
+      <button class="modal-close" data-close="postModal" aria-label="Close">×</button>
+      <span class="eyebrow">GROW YOUR TEAM</span><h2>Post a new job</h2><p class="modal-subtitle">Add the details candidates need to know.</p>
+      <form id="postForm">
+        <label>Job title<input required id="postTitle" placeholder="e.g. Software Developer Intern"></label>
+        <label>Company<input required id="postCompany" placeholder="Company name"></label>
+        <label>Location<input required id="postLocation" placeholder="e.g. Bengaluru or Remote"></label>
+        <div class="form-row"><label>Job type<select id="postType"><option>Full-time</option><option>Internship</option><option>Contract</option></select></label><label>Salary / stipend<input required id="postSalary" placeholder="e.g. ₹5 LPA"></label></div>
+        <label>Description<textarea required id="postDescription" rows="4" placeholder="Responsibilities, skills, and requirements"></textarea></label>
+        <button class="button button-primary full-width" type="submit">Publish job</button>
+        <p class="form-message" id="postMessage"></p>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
